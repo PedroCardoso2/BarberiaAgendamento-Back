@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13  # Você pode trocar a versão para a que preferir
+    container_name: meu_postgres
+    environment:
+      POSTGRES_USER: meu_usuario        # Nome do usuário do banco de dados
+      POSTGRES_PASSWORD: minha_senha    # Senha do usuário
+      POSTGRES_DB: meu_banco            # Nome do banco de dados a ser criado
+    ports:
+      - "5432:5432"  # Mapeia a porta 5432 do container para a 5432 do host
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Volumes persistentes para o banco de dados
+    networks:
+      - minha_rede
+
+volumes:
+  postgres_data:  # Volume persistente para garantir que os dados não sejam apagados quando o container for removido
+
+networks:
+  minha_rede:    # Cria uma rede para os contêineres se comunicarem
+    driver: bridge
